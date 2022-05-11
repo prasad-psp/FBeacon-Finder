@@ -26,7 +26,8 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
   }
 
   void start() {
-    if (_isInit) {
+    if (_isInit) {    
+      beaconList = null;
       progressVisible = true;
       findingProcessRunning = true;
       notifyListeners();
@@ -39,7 +40,7 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
 
   void _stopAutomatic() async {
     _print("Stop after 10 sec beacon");
-    _timer = Timer(const Duration(seconds: 10), (() => stop()));
+    _timer = Timer(const Duration(seconds: 20), (() => stop()));
   }
 
   void stop() {
@@ -51,7 +52,6 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
       progressVisible = false;
       findingProcessRunning = false;
       notifyListeners();
-      beaconList = null;
     }
   }
 
