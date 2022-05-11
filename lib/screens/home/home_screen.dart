@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    Provider.of<BeaconProvider>(context).stop();
+    _stopFinding();
     super.dispose();
   }
 
@@ -57,21 +57,28 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           Provider.of<BeaconProvider>(context, listen: false)
                   .findingProcessRunning
-              ? ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Please wait process is running")))
+              ? _stopFinding()
               : _findBeacons();
         },
-        child: const Icon(Icons.search),
+        child: Consumer<BeaconProvider>(builder: (context, provider, child) {
+          return provider.findingProcessRunning
+              ? const Icon(Icons.stop)
+              : const Icon(Icons.search);
+        }),
       ),
     );
   }
 
   _init() async {
-    await Provider.of<BeaconProvider>(context,listen: false).init();
+    await Provider.of<BeaconProvider>(context, listen: false).init();
     _findBeacons();
   }
 
   _findBeacons() {
-    Provider.of<BeaconProvider>(context,listen: false).start();
+    Provider.of<BeaconProvider>(context, listen: false).start();
+  }
+
+  _stopFinding() {
+    Provider.of<BeaconProvider>(context, listen: false).stop();
   }
 }
