@@ -1,3 +1,3 @@
 # FBeacon Finder
 
-Simple Flutter Beacon application.
+Simple Flutter Beacon Finder application.
