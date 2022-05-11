@@ -14,6 +14,7 @@ class BeaconListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      iconColor: Colors.purple,
       leading: const Icon(Icons.bubble_chart_rounded),
       title: Text(
           "${Platform.isIOS ? beacon?.proximityUUID : beacon?.macAddress}"),
