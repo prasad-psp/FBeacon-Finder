@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fbeacon_finder/beacon/beacon_callbacks.dart';
 import 'package:fbeacon_finder/beacon/beacon_finder.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,7 +8,7 @@ import 'package:flutter_beacon/flutter_beacon.dart';
 class BeaconProvider with ChangeNotifier implements RangingCallback {
   late BeaconFinder beaconFinder;
 
-  bool isInit = false;
+  bool _isInit = false;
 
   List<Beacon>? beaconList;
 
@@ -14,15 +16,17 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
 
   bool findingProcessRunning = false;
 
+  late Timer _timer;
+
   Future<void> init() async {
     beaconFinder = BeaconFinder();
-    isInit = await beaconFinder.init();
+    _isInit = await beaconFinder.init();
     beaconFinder.setOnRangingListener(this);
     _print("init beacon");
   }
 
   void start() {
-    if (isInit) {
+    if (_isInit) {
       progressVisible = true;
       findingProcessRunning = true;
       notifyListeners();
@@ -35,11 +39,12 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
 
   void _stopAutomatic() async {
     _print("Stop after 10 sec beacon");
-    await Future.delayed(const Duration(seconds: 10), (() => stop()));
+    _timer = Timer(const Duration(seconds: 10), (() => stop()));
   }
 
   void stop() {
-    if (isInit) {
+    if (_isInit) {
+      _timer.cancel();
       beaconFinder.stopRanging();
       _print("stop beacon");
 
