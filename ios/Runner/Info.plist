@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+   	<!-- When in use -->
+  	<key>NSLocationWhenInUseUsageDescription</key>
+   	<string>FBeacon Finder needs location permission for perform beacon operations.</string>
+   	<!-- Always -->
+   	<!-- for iOS 11 + -->
+   	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+   	<string>FBeacon Finder needs location permission for perform beacon operations.</string>
+   	<!-- for iOS 9/10 -->
+   	<key>NSLocationAlwaysUsageDescription</key>
+   	<string>FBeacon Finder needs location permission for perform beacon operations.</string>
+   	<!-- Bluetooth Privacy -->
+   	<!-- for iOS 13 + -->
+ 	<key>NSBluetoothAlwaysUsageDescription</key>
+    <string>FBeacon Finder needs location permission for perform beacon operations.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
