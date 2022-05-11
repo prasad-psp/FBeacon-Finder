@@ -3,6 +3,7 @@ import 'package:fbeacon_finder/route/app_routes.dart';
 import 'package:fbeacon_finder/screens/beacon_detail_screen.dart';
 import 'package:fbeacon_finder/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
           case AppRoutes.beaconDetail:
             {
               return MaterialPageRoute(
-                  builder: (context) => const BeaconDetailScreen());
+                  builder: (context) =>
+                      BeaconDetailScreen(beacon: setting.arguments as Beacon));
             }
         }
       },

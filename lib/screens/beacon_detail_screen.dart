@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_beacon/flutter_beacon.dart';
 
 class BeaconDetailScreen extends StatelessWidget {
-  const BeaconDetailScreen({Key? key}) : super(key: key);
+  final Beacon? beacon;
+
+  const BeaconDetailScreen({Key? key, required this.beacon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +23,19 @@ class BeaconDetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               headingWidget("UUID"),
-              Text("sdfdsfdsfsdfsdfsdfdsfsfs"),
+              Text("${beacon?.proximityUUID.toString()}"),
               spacingWidget(),
               headingWidget("BT Address"),
-              Text("sdfdsfdsfsdfsdfsdfdsfsfs"),
+              Text("${Platform.isAndroid ? beacon?.macAddress : " "}"),
               spacingWidget(),
               headingWidget("Major Minor"),
-              Text("sdfdsfdsfsdfsdfsdfdsfsfs"),
+              Text("${beacon?.major.toString()} ${beacon?.minor.toString()}"),
               spacingWidget(),
               headingWidget("Distance"),
-              Text("1.2 m"),
+              Text("${beacon?.accuracy.toString()} m"),
               spacingWidget(),
               headingWidget("Tx Power"),
-              Text("-54 m "),
+              Text("${Platform.isAndroid ? beacon?.txPower : ""}"),
               spacingWidget(),
             ],
           ),

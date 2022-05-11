@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fbeacon_finder/route/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 
@@ -14,11 +15,13 @@ class BeaconListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: const Icon(Icons.bubble_chart_rounded),
-      title:
-          Text("${Platform.isIOS ? beacon?.proximityUUID : beacon?.macAddress}"),
+      title: Text(
+          "${Platform.isIOS ? beacon?.proximityUUID : beacon?.macAddress}"),
       subtitle: Text("major: ${beacon?.major} minor: ${beacon?.minor}"),
       trailing: Text("${beacon?.rssi} dbm"),
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, AppRoutes.beaconDetail, arguments: beacon);
+      },
     );
   }
 }
