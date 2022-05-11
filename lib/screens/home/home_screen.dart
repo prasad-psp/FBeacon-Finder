@@ -67,11 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _init() async {
-    await Provider.of<BeaconProvider>(context).init();
+    await Provider.of<BeaconProvider>(context,listen: false).init();
     _findBeacons();
   }
 
   _findBeacons() {
-    Provider.of<BeaconProvider>(context).start();
+    Provider.of<BeaconProvider>(context,listen: false).start();
   }
 }
