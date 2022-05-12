@@ -41,11 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: provider.beaconList?.length != null
-                        ? provider.beaconList?.length
-                        : 0,
+                    itemCount: provider.beaconList.length,
                     itemBuilder: ((context, index) => BeaconListItem(
-                        beacon: provider.beaconList?.elementAt(index))),
+                        beacon: provider.beaconList.elementAt(index))),
                   ),
                 ),
               ],

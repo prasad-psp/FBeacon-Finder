@@ -10,7 +10,7 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
 
   bool _isInit = false;
 
-  List<Beacon>? beaconList;
+  List<Beacon> beaconList = <Beacon>[];
 
   bool progressVisible = false;
 
@@ -26,8 +26,8 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
   }
 
   void start() {
-    if (_isInit) {    
-      beaconList = null;
+    if (_isInit) {
+      beaconList.clear();
       progressVisible = true;
       findingProcessRunning = true;
       notifyListeners();
@@ -39,7 +39,7 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
   }
 
   void _stopAutomatic() async {
-    _print("Stop after 10 sec beacon");
+    // **Stop beacon process after 20 sec
     _timer = Timer(const Duration(seconds: 20), (() => stop()));
   }
 
@@ -58,9 +58,24 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
   @override
   void beaconsFound(List<Beacon> beacons) {
     if (beacons.isNotEmpty) {
-      beaconList = beacons;
-      notifyListeners();
-      _print("beacon found");
+
+      for (Beacon b in beacons) {
+        if (beaconList.contains(b)) {
+          // **Already exists
+          var index = beaconList.indexOf(b);
+          beaconList[index] = b;
+          _print("${beaconList.elementAt(index)}");
+        } else {
+          // **New beacon found
+          beaconList.add(b);
+        }
+      }
+
+      // **Check beacons added in list or not
+      if (beaconList.isNotEmpty) {
+        // **Beacons found
+        notifyListeners();
+      }
     }
   }
 
@@ -70,6 +85,6 @@ class BeaconProvider with ChangeNotifier implements RangingCallback {
   }
 
   void _print(String msg) {
-    print("PSP Provider $msg");
+    print("Provider $msg");
   }
 }
